@@ -52,7 +52,7 @@ public class SysConfigController extends AbstractController {
 	@ResponseBody
 	public R info(@PathVariable("id") Long id){
 		SysConfigEntity config = sysConfigService.getById(id);
-		
+
 		return R.ok().put("config", config);
 	}
 	

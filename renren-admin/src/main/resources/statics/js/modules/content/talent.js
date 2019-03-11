@@ -7,7 +7,7 @@ $(function () {
             { label: '招聘人数', name: 'talentNumber', index: 'talent_number', width: 24 },
             { label: '工作地点', name: 'talentPlace', index: 'talent_place', width: 24 },
             { label: '职位职能', name: 'talentFunctions', index: 'talent_functions', width: 120 },
-            { label: '任职资格', name: 'talentQualification ', index: 'talent_qualification', width: 120 },
+            { label: '任职资格', name: 'talentQualification', index: 'talent_qualification', width: 120 },
             { label: '薪水', name: 'talentPay', index: 'talent_pay', width: 20 },
             { label: '学历', name: 'talentEducation', index: 'talent_education', width: 20 },
             { label: '备注', name: 'remark', index: 'remark', width: 80 }
