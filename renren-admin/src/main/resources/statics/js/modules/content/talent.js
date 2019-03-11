@@ -13,55 +13,57 @@ $(function () {
             {label: '备注', name: 'remark', index: 'remark', width: 80}
         ],
         viewrecords: true,
-        height: 385,
+        height: '100%',
         rowNum: 10,
-        rowList : [10,30,50],
+        rowList: [10, 30, 50],
         rownumbers: true,
         rownumWidth: 25,
-        autowidth:true,
+        autowidth: true,
         multiselect: true,
         pager: "#jqGridPager",
-        jsonReader : {
+        jsonReader: {
             root: "page.list",
             page: "page.currPage",
             total: "page.totalPage",
             records: "page.totalCount"
         },
-        prmNames : {
-            page:"page",
-            rows:"limit",
+        prmNames: {
+            page: "page",
+            rows: "limit",
             order: "order"
         },
-        gridComplete:function(){
+        gridComplete: function () {
             //隐藏grid底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
 });
 
 var vm = new Vue({
-    el:'#rrapp',
-    data:{
-        q:{
+    el: '#rrapp',
+    data: {
+        q: {
             name: null
         },
         showList: true,
         title: null,
         talent: {}
     },
+
     methods: {
+
         query: function () {
             vm.reload();
         },
-        add: function(){
+        add: function () {
             vm.showList = false;
             vm.title = "新增";
             vm.talent = {};
         },
         update: function (event) {
             var id = getSelectedRow();
-            if(id == null){
-                return ;
+            if (id == null) {
+                return;
             }
             vm.showList = false;
             vm.title = "修改";
@@ -69,18 +71,50 @@ var vm = new Vue({
             vm.getInfo(id)
         },
         saveOrUpdate: function (event) {
+
+            /*保存和修改验证*/
+            if(!this.talent.talentTitle){
+                layer.msg('职位名称不能为空!');
+                return;
+            }
+            if(!this.talent.talentNumber){
+                layer.msg('招聘人数不能为空!');
+                return;
+            }
+            if(!this.talent.talentPlace){
+                layer.msg('工作地点不能为空!');
+                return;
+            }
+            if(!this.talent.talentFunctions){
+                layer.msg('职位职能不能为空!');
+                return;
+            }
+            if(!this.talent.talentQualification){
+                layer.msg('任职资格不能为空!');
+                return;
+            }
+            if(!this.talent.talentPay){
+                layer.msg('薪水不能为空!');
+                return;
+            }
+            if(!this.talent.talentEducation){
+                layer.msg('学历不能为空!');
+                return;
+            }
+
+
             var url = vm.talent.id == null ? "content/talent/save" : "content/talent/update";
             $.ajax({
                 type: "POST",
                 url: baseURL + url,
                 contentType: "application/json",
                 data: JSON.stringify(vm.talent),
-                success: function(r){
-                    if(r.code === 0){
-                        alert('操作成功', function(index){
+                success: function (r) {
+                    if (r.code === 0) {
+                        alert('操作成功', function (index) {
                             vm.reload();
                         });
-                    }else{
+                    } else {
                         alert(r.msg);
                     }
                 }
@@ -88,40 +122,42 @@ var vm = new Vue({
         },
         del: function (event) {
             var ids = getSelectedRows();
-            if(ids == null){
-                return ;
+            if (ids == null) {
+                return;
             }
 
-            confirm('确定要删除选中的记录？', function(){
+            confirm('确定要删除选中的记录？', function () {
                 $.ajax({
                     type: "POST",
                     url: baseURL + "content/talent/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
-                    success: function(r){
-                        if(r.code == 0){
-                            alert('操作成功', function(index){
+                    success: function (r) {
+                        if (r.code == 0) {
+                            alert('操作成功', function (index) {
                                 $("#jqGrid").trigger("reloadGrid");
                             });
-                        }else{
+                        } else {
                             alert(r.msg);
                         }
                     }
                 });
             });
         },
-        getInfo: function(id){
-            $.get(baseURL + "content/talent/info/"+id, function(r){
+        getInfo: function (id) {
+            $.get(baseURL + "content/talent/info/" + id, function (r) {
                 vm.talent = r.talent;
             });
         },
         reload: function (event) {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam','page');
-            $("#jqGrid").jqGrid('setGridParam',{
-                postData:{'name': vm.q.name},
-                page:page
+            var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: {'name': vm.q.name},
+                page: page
             }).trigger("reloadGrid");
         }
     }
+
+
 });
