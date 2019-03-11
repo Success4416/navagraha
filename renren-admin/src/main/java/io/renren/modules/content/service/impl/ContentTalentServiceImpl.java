@@ -8,7 +8,9 @@ import io.renren.common.utils.Query;
 import io.renren.modules.content.dao.ContentTalentDao;
 import io.renren.modules.content.entity.ContentTalentEntity;
 import io.renren.modules.content.service.ContentTalentService;
+import io.renren.modules.sys.redis.SysConfigRedis;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -19,6 +21,10 @@ import java.util.Map;
  **/
 @Service("contentTalentService")
 public class ContentTalentServiceImpl extends ServiceImpl<ContentTalentDao, ContentTalentEntity> implements ContentTalentService {
+
+    @Autowired
+    private SysConfigRedis sysConfigRedis;
+
     /**
      * 人才招聘List 条件查询
      * @param params
@@ -36,5 +42,12 @@ public class ContentTalentServiceImpl extends ServiceImpl<ContentTalentDao, Cont
         );
 
         return null;
+    }
+
+    @Override
+    public void saveContentTalent(ContentTalentEntity contentTalent) {
+        contentTalent.setDeleteFlag((byte)0);
+        this.save(contentTalent);
+//        sysConfigRedis.saveOrUpdate(contentTalent);
     }
 }

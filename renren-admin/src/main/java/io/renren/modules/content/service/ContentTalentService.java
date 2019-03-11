@@ -1,6 +1,7 @@
 package io.renren.modules.content.service;
 
 import io.renren.common.utils.PageUtils;
+import io.renren.modules.content.entity.ContentTalentEntity;
 
 import java.util.Map;
 
@@ -15,4 +16,11 @@ public interface ContentTalentService {
      * @return
      */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 保存人才招聘信息
+     * @param contentTalent
+     * @return
+     */
+    void saveContentTalent(ContentTalentEntity contentTalent);
 }

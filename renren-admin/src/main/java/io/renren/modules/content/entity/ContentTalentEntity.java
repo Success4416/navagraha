@@ -24,14 +24,14 @@ import javax.validation.constraints.NotBlank;
 public class ContentTalentEntity {
 	@TableId
 	private Long id;
-	private String talent_title;
-	private Integer talent_number;
-	private String talent_place;
-	private String talent_functions;
-	private String talent_qualification;
-	private String talent_pay;
-	private String talent_education;
+	private String talentTitle;
+	private Integer talentNumber;
+	private String talentPlace;
+	private String talentFunctions;
+	private String talentQualification;
+	private String talentPay;
+	private String talentEducation;
 	private String remark;
-	private Byte delete_flag;
+	private Byte deleteFlag;
 
 }

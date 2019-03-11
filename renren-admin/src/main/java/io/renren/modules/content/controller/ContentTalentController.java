@@ -13,6 +13,7 @@ import io.renren.common.annotation.SysLog;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.content.entity.ContentTalentEntity;
 import io.renren.modules.content.service.ContentTalentService;
 import io.renren.modules.sys.controller.AbstractController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -55,19 +56,19 @@ public class ContentTalentController extends AbstractController {
 //		return R.ok().put("config", config);
 //	}
 //
-//	/**
-//	 * 保存配置
-//	 */
-//	@SysLog("保存配置")
-//	@RequestMapping("/save")
-//	@RequiresPermissions("sys:config:save")
-//	public R save(@RequestBody SysConfigEntity config){
-//		ValidatorUtils.validateEntity(config);
-//
-//		sysConfigService.saveConfig(config);
-//
-//		return R.ok();
-//	}
+	/**
+	 * 保存配置
+	 */
+	@SysLog("保存配置")
+	@RequestMapping("/save")
+	@RequiresPermissions("content:talent:save")
+	public R save(@RequestBody ContentTalentEntity contentTalent){
+//		ValidatorUtils.validateEntity(contentTalent);
+
+		contentTalentService.saveContentTalent(contentTalent);
+
+		return R.ok();
+	}
 //
 //	/**
 //	 * 修改配置
