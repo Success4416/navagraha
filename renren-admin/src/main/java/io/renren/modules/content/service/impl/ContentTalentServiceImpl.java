@@ -8,11 +8,13 @@ import io.renren.common.utils.Query;
 import io.renren.modules.content.dao.ContentTalentDao;
 import io.renren.modules.content.entity.ContentTalentEntity;
 import io.renren.modules.content.service.ContentTalentService;
+import io.renren.modules.sys.entity.SysConfigEntity;
 import io.renren.modules.sys.redis.SysConfigRedis;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -48,6 +50,15 @@ public class ContentTalentServiceImpl extends ServiceImpl<ContentTalentDao, Cont
     public void saveContentTalent(ContentTalentEntity contentTalent) {
         contentTalent.setDeleteFlag((byte)0);
         this.save(contentTalent);
-//        sysConfigRedis.saveOrUpdate(contentTalent);
+    }
+
+    @Override
+    public void update(ContentTalentEntity contentTalent) {
+        this.update(contentTalent);
+    }
+
+    @Override
+    public void deleteBatch(Long[] ids) {
+        this.removeByIds(Arrays.asList(ids));
     }
 }

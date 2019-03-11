@@ -43,57 +43,56 @@ public class ContentTalentController extends AbstractController {
 		return R.ok().put("page", page);
 	}
 	
-//
-//	/**
-//	 * 配置信息
-//	 */
-//	@RequestMapping("/info/{id}")
-//	@RequiresPermissions("sys:config:info")
-//	@ResponseBody
-//	public R info(@PathVariable("id") Long id){
-//		SysConfigEntity config = sysConfigService.getById(id);
-//
-//		return R.ok().put("config", config);
-//	}
-//
+
 	/**
-	 * 保存配置
+	 * 查询才招聘信息
 	 */
-	@SysLog("保存配置")
+	@RequestMapping("/info/{id}")
+	@RequiresPermissions("content:talent:info")
+	@ResponseBody
+	public R info(@PathVariable("id") Long id){
+		ContentTalentEntity contentTalent = contentTalentService.getById(id);
+
+		return R.ok().put("contentTalent", contentTalent);
+	}
+
+	/**
+	 * 保存人才招聘信息
+	 */
+	@SysLog("保存人才招聘信息")
 	@RequestMapping("/save")
 	@RequiresPermissions("content:talent:save")
 	public R save(@RequestBody ContentTalentEntity contentTalent){
-//		ValidatorUtils.validateEntity(contentTalent);
+		ValidatorUtils.validateEntity(contentTalent);
 
 		contentTalentService.saveContentTalent(contentTalent);
 
 		return R.ok();
 	}
-//
-//	/**
-//	 * 修改配置
-//	 */
-//	@SysLog("修改配置")
-//	@RequestMapping("/update")
-//	@RequiresPermissions("sys:config:update")
-//	public R update(@RequestBody SysConfigEntity config){
-//		ValidatorUtils.validateEntity(config);
-//
-//		sysConfigService.update(config);
-//
-//		return R.ok();
-//	}
-//
-//	/**
-//	 * 删除配置
-//	 */
-//	@SysLog("删除配置")
-//	@RequestMapping("/delete")
-//	@RequiresPermissions("sys:config:delete")
-//	public R delete(@RequestBody Long[] ids){
-//		sysConfigService.deleteBatch(ids);
-//
-//		return R.ok();
-//	}
+
+	/**
+	 * 修改人才招聘信息
+	 */
+	@SysLog("修改人才招聘信息")
+	@RequestMapping("/update")
+	@RequiresPermissions("content:talent:update")
+	public R update(@RequestBody ContentTalentEntity contentTalent){
+		ValidatorUtils.validateEntity(contentTalent);
+
+		contentTalentService.update(contentTalent);
+
+		return R.ok();
+	}
+
+	/**
+	 * 删除才招聘信息
+	 */
+	@SysLog("删除才招聘信息")
+	@RequestMapping("/delete")
+	@RequiresPermissions("content:talent:delete")
+	public R delete(@RequestBody Long[] ids){
+		contentTalentService.deleteBatch(ids);
+		return R.ok();
+	}
 
 }

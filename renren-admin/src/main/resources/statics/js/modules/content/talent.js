@@ -1,4 +1,3 @@
-
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'content/talent/list',
@@ -14,77 +13,55 @@ $(function () {
             {label: '备注', name: 'remark', index: 'remark', width: 80}
         ],
         viewrecords: true,
-        height: '100%',
+        height: 385,
         rowNum: 10,
-        rowList: [10, 30, 50],
+        rowList : [10,30,50],
         rownumbers: true,
         rownumWidth: 25,
-        autowidth: true,
+        autowidth:true,
         multiselect: true,
         pager: "#jqGridPager",
-        jsonReader: {
+        jsonReader : {
             root: "page.list",
             page: "page.currPage",
             total: "page.totalPage",
             records: "page.totalCount"
         },
-        prmNames: {
-            page: "page",
-            rows: "limit",
+        prmNames : {
+            page:"page",
+            rows:"limit",
             order: "order"
         },
-        gridComplete: function () {
+        gridComplete:function(){
             //隐藏grid底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
         }
     });
 });
 
 var vm = new Vue({
-    el: '#rrapp',
-    data: {
-        couponList: [
-            {
-                id: 'A',
-                name: '优惠券1'
-            },
-            {
-                id: '1',
-                name: '优惠券2'
-            },
-            {
-                id: '2',
-                name: '优惠券3'
-            }
-        ],
-        q: {
+    el:'#rrapp',
+    data:{
+        q:{
             name: null
         },
         showList: true,
         title: null,
         talent: {}
     },
-    created() {
-        //如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
-        this.couponSelected = this.couponList[0].id;
-    },
     methods: {
-        getCouponSelected() {
-            //获取选中的优惠券
-            console.log(this.couponSelected)
-        },
         query: function () {
             vm.reload();
         },
-        add: function () {
+        add: function(){
             vm.showList = false;
             vm.title = "新增";
             vm.talent = {};
         },
         update: function (event) {
             var id = getSelectedRow();
-            if (id == null) {
-                return;
+            if(id == null){
+                return ;
             }
             vm.showList = false;
             vm.title = "修改";
@@ -98,12 +75,12 @@ var vm = new Vue({
                 url: baseURL + url,
                 contentType: "application/json",
                 data: JSON.stringify(vm.talent),
-                success: function (r) {
-                    if (r.code === 0) {
-                        alert('操作成功', function (index) {
+                success: function(r){
+                    if(r.code === 0){
+                        alert('操作成功', function(index){
                             vm.reload();
                         });
-                    } else {
+                    }else{
                         alert(r.msg);
                     }
                 }
@@ -111,39 +88,39 @@ var vm = new Vue({
         },
         del: function (event) {
             var ids = getSelectedRows();
-            if (ids == null) {
-                return;
+            if(ids == null){
+                return ;
             }
 
-            confirm('确定要删除选中的记录？', function () {
+            confirm('确定要删除选中的记录？', function(){
                 $.ajax({
                     type: "POST",
                     url: baseURL + "content/talent/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.code == 0) {
-                            alert('操作成功', function (index) {
+                    success: function(r){
+                        if(r.code == 0){
+                            alert('操作成功', function(index){
                                 $("#jqGrid").trigger("reloadGrid");
                             });
-                        } else {
+                        }else{
                             alert(r.msg);
                         }
                     }
                 });
             });
         },
-        getInfo: function (id) {
-            $.get(baseURL + "content/talent/info/" + id, function (r) {
+        getInfo: function(id){
+            $.get(baseURL + "content/talent/info/"+id, function(r){
                 vm.talent = r.talent;
             });
         },
         reload: function (event) {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam', 'page');
-            $("#jqGrid").jqGrid('setGridParam', {
-                postData: {'name': vm.q.name},
-                page: page
+            var page = $("#jqGrid").jqGrid('getGridParam','page');
+            $("#jqGrid").jqGrid('setGridParam',{
+                postData:{'name': vm.q.name},
+                page:page
             }).trigger("reloadGrid");
         }
     }
