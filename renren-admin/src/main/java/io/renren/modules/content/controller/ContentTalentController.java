@@ -53,7 +53,7 @@ public class ContentTalentController extends AbstractController {
 	public R info(@PathVariable("id") Long id){
 		ContentTalentEntity contentTalent = contentTalentService.getById(id);
 
-		return R.ok().put("contentTalent", contentTalent);
+		return R.ok().put("talent", contentTalent);
 	}
 
 	/**
@@ -78,9 +78,7 @@ public class ContentTalentController extends AbstractController {
 	@RequiresPermissions("content:talent:update")
 	public R update(@RequestBody ContentTalentEntity contentTalent){
 		ValidatorUtils.validateEntity(contentTalent);
-
 		contentTalentService.update(contentTalent);
-
 		return R.ok();
 	}
 

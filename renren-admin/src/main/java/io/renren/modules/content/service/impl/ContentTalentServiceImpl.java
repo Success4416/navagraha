@@ -54,11 +54,14 @@ public class ContentTalentServiceImpl extends ServiceImpl<ContentTalentDao, Cont
 
     @Override
     public void update(ContentTalentEntity contentTalent) {
-        this.update(contentTalent);
+        this.updateById(contentTalent);
     }
 
     @Override
     public void deleteBatch(Long[] ids) {
-        this.removeByIds(Arrays.asList(ids));
+        //实际删除
+//        this.removeByIds(Arrays.asList(ids));
+        //物理删除  置delete_flag字段为1
+        int i = baseMapper.deleteBatch(ids);
     }
 }
