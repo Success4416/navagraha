@@ -1,10 +1,4 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.renren.io
- *
- * 版权所有，侵权必究！
- */
+
 
 package io.renren.common.config;
 
@@ -43,7 +37,7 @@ public class SwaggerConfig{
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("人人开源")
+            .title("九曜智能")
             .description("renren-admin文档")
             .termsOfServiceUrl("https://www.renren.io")
             .version("4.0.0")
