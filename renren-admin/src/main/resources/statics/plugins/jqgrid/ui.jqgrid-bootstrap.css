@@ -262,6 +262,7 @@ div.tablediv > .table-bordered {
 	white-space: nowrap;
 	overflow: hidden;
 }
+.ui-jqgrid .ui-jqgrid-pager{margin-top:10px;}
 .ui-jqgrid .ui-jqgrid-toppager {
 	border-top-width :0;
 	border-bottom : 1px solid #ddd;

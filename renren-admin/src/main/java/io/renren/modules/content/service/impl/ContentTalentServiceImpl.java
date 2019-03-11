@@ -41,7 +41,7 @@ public class ContentTalentServiceImpl extends ServiceImpl<ContentTalentDao, Cont
                         .eq("delete_flag", 0)
         );
 
-        return null;
+        return new PageUtils(page);
     }
 
     @Override
