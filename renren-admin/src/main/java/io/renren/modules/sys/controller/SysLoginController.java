@@ -63,10 +63,11 @@ public class SysLoginController {
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
 	public R login(String username, String password, String captcha) {
 		String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-//		if(!captcha.equalsIgnoreCase(kaptcha)){
-//			return R.error("验证码不正确");
-//		}
-//
+		//验证码
+		if(!captcha.equalsIgnoreCase(kaptcha)){
+			return R.error("验证码不正确");
+		}
+
 		try{
 			Subject subject = ShiroUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -98,8 +99,8 @@ public class SysLoginController {
 	 */
 	@RequestMapping("/talent/list")
 	@ResponseBody
-	public List list(HttpServletRequest httpServletRequest){
-		httpServletRequest
+	public List list(@RequestParam Map<String, Object> params,HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		PageUtils page = contentTalentService.queryPage(params);
 		return page.getList();
 	}
