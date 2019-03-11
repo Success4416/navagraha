@@ -10,7 +10,8 @@ $(function () {
             {label: '任职资格', name: 'talentQualification', index: 'talent_qualification', width: 120},
             {label: '薪水', name: 'talentPay', index: 'talent_pay', width: 20},
             {label: '学历', name: 'talentEducation', index: 'talent_education', width: 20},
-            {label: '备注', name: 'remark', index: 'remark', width: 80}
+            {label: '接收邮箱', name: 'talentEmail', index: 'talent_email', width: 70},
+            {label: '备注', name: 'remark', index: 'remark', width: 30}
         ],
         viewrecords: true,
         height: '100%',
@@ -99,6 +100,10 @@ var vm = new Vue({
             }
             if(!this.talent.talentEducation){
                 layer.msg('学历不能为空!');
+                return;
+            }
+            if(!this.talent.talentEmail){
+                layer.msg('接收简历邮箱不能为空!');
                 return;
             }
 

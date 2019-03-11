@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -97,7 +98,8 @@ public class SysLoginController {
 	 */
 	@RequestMapping("/talent/list")
 	@ResponseBody
-	public List list(@RequestParam Map<String, Object> params){
+	public List list(HttpServletRequest httpServletRequest){
+		httpServletRequest
 		PageUtils page = contentTalentService.queryPage(params);
 		return page.getList();
 	}

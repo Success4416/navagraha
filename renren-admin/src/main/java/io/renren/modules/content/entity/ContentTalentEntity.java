@@ -19,13 +19,14 @@ public class ContentTalentEntity {
 	@TableId
 	private Long id;
 	private String talentTitle;
-	private Integer talentNumber;
+	private String talentNumber;
 	private String talentPlace;
 	private String talentFunctions;
 	private String talentQualification;
 	private String talentPay;
 	private String talentEducation;
 	private String remark;
+	private String talentEmail;
 	private Byte deleteFlag;
 
 }
