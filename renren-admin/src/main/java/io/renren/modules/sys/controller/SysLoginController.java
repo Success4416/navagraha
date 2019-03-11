@@ -11,14 +11,18 @@ package io.renren.modules.sys.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
+import io.renren.modules.content.service.ContentTalentService;
 import io.renren.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.imageio.ImageIO;
@@ -26,6 +30,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 登录相关
@@ -36,6 +42,8 @@ import java.io.IOException;
 public class SysLoginController {
 	@Autowired
 	private Producer producer;
+	@Autowired
+	ContentTalentService contentTalentService;
 	
 	@RequestMapping("captcha.jpg")
 	public void captcha(HttpServletResponse response)throws IOException {
@@ -88,6 +96,16 @@ public class SysLoginController {
 	public String logout() {
 		ShiroUtils.logout();
 		return "redirect:login.html";
+	}
+
+	/**
+	 * 查询所有的人才招聘信息
+	 */
+	@RequestMapping("/talent/list")
+	@ResponseBody
+	public List list(@RequestParam Map<String, Object> params){
+		PageUtils page = contentTalentService.queryPage(params);
+		return page.getList();
 	}
 	
 }
