@@ -4,10 +4,10 @@
 <mapper namespace="io.renren.modules.content.dao.ContentTalentDao">
 	
 	<!-- 批量更新状态 -->
-	<update id="updateBatch"> 
-		update schedule_job set status = #{status} where job_id in 
-		<foreach item="jobId" collection="list"  open="(" separator="," close=")">
-			#{jobId}
+	<update id="deleteBatch">
+		update content_talent set delete_flag = 1 where id in
+		<foreach item="id" collection="array"  open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</update>
 

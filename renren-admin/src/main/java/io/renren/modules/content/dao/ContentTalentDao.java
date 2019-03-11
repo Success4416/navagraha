@@ -21,6 +21,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ContentTalentDao extends BaseMapper<ContentTalentEntity> {
 
-
-	
+    /**
+     * 根据角色ID数组，批量删除
+     */
+    int deleteBatch(Long[] ids);
 }
