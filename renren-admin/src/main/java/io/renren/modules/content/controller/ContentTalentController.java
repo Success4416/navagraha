@@ -71,6 +71,8 @@ public class ContentTalentController extends AbstractController {
 	@RequiresPermissions("content:talent:update")
 	public R update(@RequestBody ContentTalentEntity contentTalent){
 		ValidatorUtils.validateEntity(contentTalent);
+		String qualification = contentTalent.getTalentQualification();
+		String replace = qualification.replaceAll("\\n", "\\r\\n");
 		contentTalentService.update(contentTalent);
 		return R.ok();
 	}

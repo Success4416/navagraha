@@ -10,7 +10,6 @@ import io.renren.common.utils.R;
 import io.renren.modules.content.service.ContentTalentService;
 import io.renren.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
